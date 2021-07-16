@@ -1,4 +1,10 @@
 
+%% add some folders
+addpath('biosig4matlab');
+addpath('spikedetectors');
+addpath('eegplotfunc');
+
+%% load the data
 [data, hdr] = mexSLOAD('/Users/simonhenin/OneDrive - NYU Langone Health/X~ X_ea75ab26-67ac-485f-87b5-e73759b5ca06.EDF');
 chs = 1:find( strcmp(hdr.Label, 'SG1'))-1;
 data = data(:, chs);

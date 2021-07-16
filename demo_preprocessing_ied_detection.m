@@ -66,24 +66,24 @@ eegplot(data', 'srate', fs, 'data2', spks_mv'.*500, 'spacing', 150, 'labels', la
 
 
 %% Line-length detector (Kleen Lab)
-spks_ll = zeros(size(data));
+spks_ll = nan(size(data));
 for ch=1:size(data,2),
     ets=LLspikedetector(data(:, ch),fs);
     for j=1:length(ets),
         % mark the entire spike
-        spks_ll( ets(j,1):ets(j, 2), ch ) = 1;
+        spks_ll( ets(j,1):ets(j, 2), ch ) = data(ets(j,1):ets(j, 2), ch);
     end
 end
-eegplot(data', 'srate', fs, 'data2', spks_ll'.*500, 'spacing', 150, 'labels', labels);
+eegplot(data', 'srate', fs, 'data2', spks_ll', 'spacing', 150, 'labels', labels);
 
 %% run it on all channels
 [ets,ech]=LLspikedetector(data',fs);
-spks_ll = zeros(size(data));
-for j=1:length(ets),
+spks_ll = nan(size(data));
+for j=1:length(ets),    
     % mark the entire spike
-    spks_ll( ets(j,1):ets(j, 2), ech(j, :) ) = 1;
+    spks_ll( ets(j,1):ets(j, 2), ech(j, :) ) = data(ets(j,1):ets(j, 2), ech(j, :));
 end
-eegplot(data', 'srate', fs, 'data2', spks_ll'.*500, 'spacing', 150, 'labels', labels);
+eegplot(data', 'srate', fs, 'data2', spks_ll', 'spacing', 150, 'labels', labels);
 
 
 
